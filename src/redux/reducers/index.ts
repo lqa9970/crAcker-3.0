@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux'
 
-import product from './product'
+import favorite from './favorite'
 import ui from './ui'
+import coin from './coin'
 
 const createRootReducer = () =>
   combineReducers({
-    product,
+    favorite,
     ui,
+    coin,
   })
 
 export default createRootReducer

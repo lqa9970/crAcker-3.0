@@ -1,5 +1,6 @@
 // Action types
 export const ADD_PRODUCT = 'ADD_PRODUCT'
+export const ADD_COIN = 'ADD_COIN'
 export const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 export const TOGGLE_DIALOG = 'TOGGLE_DIALOG'
 
@@ -19,30 +20,28 @@ export type Product = {
 export type AddProductAction = {
   type: typeof ADD_PRODUCT
   payload: {
-    product: Product,
+    product: Product
   }
 }
 
 export type RemoveProductAction = {
   type: typeof REMOVE_PRODUCT
   payload: {
-    product: Product,
+    product: Product
   }
 }
 
 export type ToggleDialogAction = {
   type: typeof TOGGLE_DIALOG
   payload: {
-    dialog: DialogType,
+    dialog: DialogType
   }
 }
 
 export type UiActions = ToggleDialogAction
 
 // Use this union in reducer
-export type ProductActions =
-  | AddProductAction
-  | RemoveProductAction
+export type ProductActions = AddProductAction | RemoveProductAction
 
 export type ProductState = {
   inCart: Product[]
@@ -56,6 +55,78 @@ export type UiState = {
 }
 
 export type AppState = {
-  product: ProductState,
-  ui: UiState,
+  coin: CoinState
+  ui: UiState
 }
+
+// Coin Types
+
+export type CoinState = {
+  coins: Coin[]
+  isLoading: boolean
+  error: any | string
+  favorite: Coin[]
+}
+
+export const GET_COINS = 'GET_COINS'
+export const GET_COINS_SUCCESS = 'GET_COINS_SUCCESS'
+export const GET_COINS_FAIL = 'GET_COINS_FAIL'
+
+export const ADD_FAVORITE_COINS = 'ADD_FAVORITE_COINS'
+export const REMOVE_FAVORITE_COINS = 'REMOVE_FAVORITE_COINS'
+
+export type AllCoinsState = {
+  coins: Coin[]
+  isLoading: boolean
+  error: string
+}
+
+export type Coin = {
+  image: string
+  name: string
+  current_price: number
+  price_change_percentage_24h: number
+}
+
+export type GetAllCoinAction = {
+  type: typeof GET_COINS
+  payload?: string
+}
+
+export type GetAllCoinSuccess = {
+  type: typeof GET_COINS_SUCCESS
+  payload?: Coin[]
+}
+
+export type GetAllCoinFail = {
+  type: typeof GET_COINS_FAIL
+  payload?: string
+}
+
+export type CoinActions = GetAllCoinAction | GetAllCoinSuccess | GetAllCoinFail
+
+export enum Theme {
+  Dark = 'black',
+  Light = 'white',
+}
+
+export type ThemeContextType = {
+  theme: Theme
+  switchTheme: (switchTheme: Theme) => void
+}
+
+export type FavoriteState = {
+  favorites: []
+}
+
+export type AddFavorite = {
+  type: typeof ADD_FAVORITE_COINS
+  payload: Coin
+}
+
+export type RemoveFavorite = {
+  type: typeof REMOVE_FAVORITE_COINS
+  payload: Coin
+}
+
+export type FavoriteActions = AddFavorite | RemoveFavorite

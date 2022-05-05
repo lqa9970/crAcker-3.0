@@ -1,0 +1,22 @@
+@use 'mixins' as *;
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  font-weight: weight(regular);
+  font-family: $font;
+}
+
+.MuiInputBase-input,
+.MuiTypography-root {
+  font-family: $font !important;
+}
