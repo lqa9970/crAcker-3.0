@@ -1,12 +1,24 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 
+import { ThemeContext } from '../../context/theme-context'
+
 import './Search.scss'
 
-const Search = () => {
+type SearchProps = {
+  handleSearch: Function
+}
+
+const Search = ({ handleSearch }: SearchProps) => {
+  const { theme } = useContext(ThemeContext)
+
+  const handleInputChange = (e: any) => {
+    handleSearch(e.target.value)
+  }
+
   return (
-    <div className="search__content">
+    <div className={`search__content search__content__${theme}`}>
       <Box
         component="form"
         sx={{
@@ -16,8 +28,10 @@ const Search = () => {
         autoComplete="off"
       >
         <TextField
+          onChange={handleInputChange}
           id="outlined-basic"
           label="Coin search..."
+          color="warning"
           variant="outlined"
         />
       </Box>

@@ -1,0 +1,90 @@
+@import './mixins';
+
+.coinPage {
+  padding-top: 80px;
+  text-align: center;
+  height: 100vh;
+  max-height: 1000vh;
+  &__dark {
+    background-color: $dark;
+    color: $light;
+  }
+  &__light {
+    background-color: $light;
+  }
+  &__content {
+    margin: auto;
+    width: 60%;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    padding: 5vh 0;
+    &.dark {
+      border-color: $light;
+    }
+    &.light {
+      border-color: $dark;
+    }
+    &__img {
+      width: 15%;
+      margin-bottom: 15px;
+    }
+    &__line {
+      font-size: 20px;
+    }
+  }
+}
+
+.ballBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 180px;
+  &__bar {
+    width: 500px;
+    height: 25px;
+    background-color: $orange;
+    border-radius: 30px;
+    transform: rotate(-15deg);
+    filter: drop-shadow(20px 10px 4px gray);
+    animation: up-down ease-in-out 3s infinite alternate;
+  }
+  &__rollingCoin {
+    position: relative;
+    bottom: 100px;
+    margin-right: calc(100% - 70px);
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    animation: coin-move ease-in-out 3s infinite alternate;
+    &::after {
+      position: absolute;
+      content: '';
+      top: 50px;
+      right: 10px;
+      width: 10px;
+      height: 10px;
+      background: #fff;
+      border-radius: 50%;
+    }
+  }
+}
+
+@keyframes up-down {
+  from {
+    transform: rotate(-15deg);
+  }
+  to {
+    transform: rotate(15deg);
+  }
+}
+@keyframes coin-move {
+  from {
+    left: calc(100% - 70px);
+    transform: rotate(360deg);
+  }
+  to {
+    left: calc(0% - 35px);
+    transform: rotate(0deg);
+  }
+}

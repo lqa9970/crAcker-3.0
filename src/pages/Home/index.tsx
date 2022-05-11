@@ -8,6 +8,7 @@ import { ThemeContext } from '../../context/theme-context'
 import { fetchCoins } from '../../redux/actions'
 
 const Home = () => {
+  const [keyword, setKeyword] = useState('')
   const { theme } = useContext(ThemeContext)
   const dispatch = useDispatch()
 
@@ -15,11 +16,15 @@ const Home = () => {
     dispatch(fetchCoins())
   }, [dispatch])
 
+  const handleSearch = (value: string) => {
+    setKeyword(value)
+  }
+
   return (
-    <>
-      <Search />
-      <TableComponent />
-    </>
+    <div className={`home home__${theme}`}>
+      <Search handleSearch={handleSearch} />
+      <TableComponent keyword={keyword} />
+    </div>
   )
 }
 

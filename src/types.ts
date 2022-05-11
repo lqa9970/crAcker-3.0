@@ -56,6 +56,7 @@ export type UiState = {
 
 export type AppState = {
   coin: CoinState
+  favorite: FavoriteState
   ui: UiState
 }
 
@@ -64,8 +65,9 @@ export type AppState = {
 export type CoinState = {
   coins: Coin[]
   isLoading: boolean
+  isFavorited: boolean
   error: any | string
-  favorite: Coin[]
+  favorites: Coin[]
 }
 
 export const GET_COINS = 'GET_COINS'
@@ -79,6 +81,7 @@ export type AllCoinsState = {
   coins: Coin[]
   isLoading: boolean
   error: string
+  isFavorited: boolean
 }
 
 export type Coin = {
@@ -86,6 +89,12 @@ export type Coin = {
   name: string
   current_price: number
   price_change_percentage_24h: number
+  isFavorited?: boolean
+  id: string
+  market_cap_rank: number
+  high_24h: number
+  low_24h: number
+  symbol: string
 }
 
 export type GetAllCoinAction = {
@@ -106,8 +115,8 @@ export type GetAllCoinFail = {
 export type CoinActions = GetAllCoinAction | GetAllCoinSuccess | GetAllCoinFail
 
 export enum Theme {
-  Dark = 'black',
-  Light = 'white',
+  Dark = 'dark',
+  Light = 'light',
 }
 
 export type ThemeContextType = {
@@ -116,7 +125,7 @@ export type ThemeContextType = {
 }
 
 export type FavoriteState = {
-  favorites: []
+  favorites: Coin[]
 }
 
 export type AddFavorite = {

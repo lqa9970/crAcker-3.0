@@ -1,3 +1,50 @@
+@import '../../styles/mixins';
+
 img {
-  width: 30%;
+  width: 20%;
+}
+
+.table {
+  &__dark {
+    background-color: $dark;
+    & .css-1ygcj2i-MuiTableCell-root,
+    .css-78trlr-MuiButtonBase-root-MuiIconButton-root,
+    .css-1ndpvdd-MuiTableCell-root,
+    .css-1yhpg23-MuiTableCell-root {
+      border-bottom: 0.2px solid #403e3e;
+      font-size: 1.2rem;
+      color: $light;
+    }
+  }
+  &__light {
+    background-color: $light;
+    & .css-1ygcj2i-MuiTableCell-root,
+    .css-78trlr-MuiButtonBase-root-MuiIconButton-root,
+    .css-1ndpvdd-MuiTableCell-root,
+    .css-1yhpg23-MuiTableCell-root {
+      font-size: 1.2rem;
+      color: $dark;
+      border-bottom: 0.2px solid #d5cccc;
+    }
+  }
+}
+
+.coin__button {
+  background-color: transparent;
+  padding: 20px;
+  border-style: solid;
+  border-color: $orange;
+  border-radius: 5px;
+  border-width: 2px;
+  text-align: center;
+  text-decoration: none;
+  &__dark {
+    color: $light;
+  }
+  &__light {
+    color: $dark;
+  }
+  &:hover {
+    box-shadow: 0px 3px 5px gray;
+  }
 }

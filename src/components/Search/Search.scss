@@ -1,3 +1,11 @@
+@import '../../styles/mixins';
+
 .search__content {
   padding-top: 80px;
+  &__dark {
+    background-color: $dark;
+  }
+  &__light {
+    background-color: $light;
+  }
 }

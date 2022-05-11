@@ -9,6 +9,7 @@ const initState: AllCoinsState = {
   coins: [],
   isLoading: false,
   error: '',
+  isFavorited: false,
 }
 
 const coinReducer = (state: AllCoinsState = initState, action: any) => {
@@ -17,6 +18,7 @@ const coinReducer = (state: AllCoinsState = initState, action: any) => {
       return {
         ...state,
         isLoading: true,
+        isFavorited: false,
       }
 
     case GET_COINS_SUCCESS:
@@ -25,12 +27,14 @@ const coinReducer = (state: AllCoinsState = initState, action: any) => {
         isLoading: false,
         coins: action.payload,
         error: '',
+        isFavorited: false,
       }
     case GET_COINS_FAIL:
       return {
         ...state,
         isLoading: false,
         error: action.payload,
+        isFavorited: false,
       }
 
     default:

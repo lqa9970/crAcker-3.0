@@ -1,1 +1,12 @@
-@use 'mixins' as *;
+@import './mixins';
+
+.home {
+  height: 100vh;
+  &__dark {
+    background-color: $dark;
+    color: $light;
+  }
+  &__light {
+    background-color: $light;
+  }
+}

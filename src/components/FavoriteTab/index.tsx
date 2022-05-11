@@ -1,10 +1,20 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import { Drawer, Box, Typography, IconButton } from '@mui/material'
 import FavoriteSharpIcon from '@mui/icons-material/FavoriteSharp'
+import Badge from '@mui/material/Badge'
+
+import { Coin, AppState } from '../../types'
+
+import './favorite.scss'
 
 const FavoriteTab = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
+  const favoritesContent = useSelector(
+    (state: AppState) => state.favorite.favorites
+  )
   return (
     <>
       <IconButton
@@ -12,7 +22,9 @@ const FavoriteTab = () => {
         size="large"
         onClick={() => setIsDrawerOpen(true)}
       >
-        <FavoriteSharpIcon color="primary" fontSize="inherit" />
+        <Badge badgeContent={favoritesContent.length} max={10} color="error">
+          <FavoriteSharpIcon color="primary" fontSize="inherit" />
+        </Badge>
       </IconButton>
       <Drawer
         anchor="right"
@@ -23,6 +35,14 @@ const FavoriteTab = () => {
           <Typography variant="h6" component="div">
             Favorite Tab
           </Typography>
+          {favoritesContent.map((favorite: Coin) => (
+            <Link to={`/${favorite.id}`}>
+              <div key={favorite.id} className="favorite__box">
+                <img src={favorite.image} alt="Coin logo" />
+                <p>{favorite.name}</p>
+              </div>
+            </Link>
+          ))}
         </Box>
       </Drawer>
     </>
