@@ -3,6 +3,7 @@ import {
   GET_COINS,
   GET_COINS_SUCCESS,
   GET_COINS_FAIL,
+  ADD_FAVORITE_COINS,
 } from '../../types'
 
 const initState: AllCoinsState = {

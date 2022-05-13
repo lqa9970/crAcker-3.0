@@ -21,12 +21,12 @@ const CoinPage = () => {
     const fetchData = async (coinId: string) => {
       try {
         setIsLoading(true)
-        const res = await (
-          await fetch(
-            `https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&ids=${coinId}`
-          )
-        ).json()
+        const request = await fetch(
+          `https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&ids=${coinId}`
+        )
+        const res = await request.json()
         console.log(res)
+
         setCoin(res[0])
       } catch (err) {
         console.log(err)
@@ -36,7 +36,7 @@ const CoinPage = () => {
       setInvest(rndInt)
     }
     fetchData(id)
-  }, [])
+  }, [id])
 
   console.log(coin)
 

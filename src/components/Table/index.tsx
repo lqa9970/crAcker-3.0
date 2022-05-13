@@ -26,6 +26,8 @@ const TableComponent = ({ keyword }: TableProps) => {
   const dispatch = useDispatch()
   const { theme } = useContext(ThemeContext)
   const coins = useSelector((state: AppState) => state.coin.coins)
+  const favorites = useSelector((state: AppState) => state.favorite.favorites)
+  const favoritesAsNames = favorites.map((coin) => coin.name)
   const isLoading = useSelector((state: AppState) => state.coin.isLoading)
   // let isFavorited = useSelector((state: AppState) => state.coin.isFavorited)
   const [filteredCoins, setFilteredCoins] = useState(coins)
@@ -46,12 +48,10 @@ const TableComponent = ({ keyword }: TableProps) => {
   }, [keyword, coins])
 
   const handleAddFavorite = (coin: Coin) => {
-    coin.isFavorited = !coin.isFavorited
     dispatch(addFavorite(coin))
   }
 
   const handleRemoveFavorite = (coin: Coin) => {
-    coin.isFavorited = !coin.isFavorited
     dispatch(removeFavorite(coin))
   }
 
@@ -78,39 +78,42 @@ const TableComponent = ({ keyword }: TableProps) => {
             </TableRow>
           ) : (
             <>
-              {filteredCoins.map((coin) => (
-                <TableRow
-                  className={`table__${theme}`}
-                  key={coin.name}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row" align="center">
-                    <img src={`${coin.image}`} alt={`${coin.name}'s logo`} />
-                  </TableCell>
-                  <TableCell align="center">
-                    <Link to={`/${coin.id}`}>
-                      <div className={`coin__button coin__button__${theme}`}>
-                        {coin.name}
-                      </div>
-                    </Link>
-                  </TableCell>
-                  <TableCell align="center">€{coin.current_price}</TableCell>
-                  <TableCell align="center">
-                    {coin.price_change_percentage_24h}%
-                  </TableCell>
-                  <TableCell align="center">
-                    {coin.isFavorited ? (
-                      <IconButton onClick={() => handleRemoveFavorite(coin)}>
-                        <FavoriteIcon color="error" />
-                      </IconButton>
-                    ) : (
-                      <IconButton onClick={() => handleAddFavorite(coin)}>
-                        <FavoriteBorderIcon />
-                      </IconButton>
-                    )}
-                  </TableCell>
-                </TableRow>
-              ))}
+              {filteredCoins.map((coin) => {
+                const isFav = favoritesAsNames.includes(coin.name)
+                return (
+                  <TableRow
+                    className={`table__${theme}`}
+                    key={coin.name}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row" align="center">
+                      <img src={`${coin.image}`} alt={`${coin.name}'s logo`} />
+                    </TableCell>
+                    <TableCell align="center">
+                      <Link to={`/${coin.id}`}>
+                        <div className={`coin__button coin__button__${theme}`}>
+                          {coin.name}
+                        </div>
+                      </Link>
+                    </TableCell>
+                    <TableCell align="center">€{coin.current_price}</TableCell>
+                    <TableCell align="center">
+                      {coin.price_change_percentage_24h}%
+                    </TableCell>
+                    <TableCell align="center">
+                      {isFav ? (
+                        <IconButton onClick={() => handleRemoveFavorite(coin)}>
+                          <FavoriteIcon color="error" />
+                        </IconButton>
+                      ) : (
+                        <IconButton onClick={() => handleAddFavorite(coin)}>
+                          <FavoriteBorderIcon />
+                        </IconButton>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                )
+              })}
             </>
           )}
         </TableBody>

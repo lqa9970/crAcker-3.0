@@ -21,9 +21,12 @@ const favoriteReducer = (
       }
 
     case REMOVE_FAVORITE_COINS:
+      const filteredCoins = state.favorites.filter(
+        (coin) => coin !== action.payload
+      )
       return {
         ...state,
-        favorites: [state.favorites.filter((coin) => coin !== action.payload)],
+        favorites: filteredCoins,
       }
     default:
       return state
