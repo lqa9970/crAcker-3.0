@@ -5,6 +5,10 @@ import {
   GET_COINS,
   GET_COINS_SUCCESS,
   GET_COINS_FAIL,
+  GET_FAV,
+  GET_FAV_SUCCESS,
+  GET_FAV_FAIL,
+  Coin,
 } from '../../types'
 
 export const getCoins = (): CoinActions => {
@@ -27,12 +31,32 @@ export const getCoinsFail = (error: string): CoinActions => {
   }
 }
 
+export const getFav = (): CoinActions => {
+  return {
+    type: GET_FAV,
+  }
+}
+
+export const getFavSuccess = (coin: Coin): CoinActions => {
+  return {
+    type: GET_FAV_SUCCESS,
+    payload: coin,
+  }
+}
+
+export const getFavFail = (error: string): CoinActions => {
+  return {
+    type: GET_FAV_FAIL,
+    payload: error,
+  }
+}
+
 const baseUrl =
   'https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d'
 
-export const fetchCoins = () => {
-  // const dispatch = useDispatch()
+const favUrl = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&ids=`
 
+export const fetchCoins = () => {
   return async (dispatch: Dispatch) => {
     dispatch(getCoins())
     try {
@@ -42,6 +66,22 @@ export const fetchCoins = () => {
       console.log(err)
       return (err: any) => {
         dispatch(getCoinsFail(err.message))
+      }
+    }
+  }
+}
+
+export const fetchFav = (id: string) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(getFav())
+    try {
+      const request = await fetch(favUrl + `${id}`)
+      const res = await request.json()
+      return dispatch(getFavSuccess(res))
+    } catch (err) {
+      console.log(err)
+      return (err: any) => {
+        dispatch(getFavFail(err.message))
       }
     }
   }

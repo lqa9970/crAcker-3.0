@@ -1,9 +1,11 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import Divider from '@mui/material/Divider'
+
 import { ThemeContext } from '../../context/theme-context'
 import ThemeTab from '../ThemeTab'
 import FavoriteTab from '../FavoriteTab'
+
 import './Nav.scss'
 
 const Nav = () => {

@@ -74,6 +74,10 @@ export const GET_COINS = 'GET_COINS'
 export const GET_COINS_SUCCESS = 'GET_COINS_SUCCESS'
 export const GET_COINS_FAIL = 'GET_COINS_FAIL'
 
+export const GET_FAV = 'GET_FAV'
+export const GET_FAV_SUCCESS = 'GET_FAV_SUCCESS'
+export const GET_FAV_FAIL = 'GET_FAV_FAIL'
+
 export const ADD_FAVORITE_COINS = 'ADD_FAVORITE_COINS'
 export const REMOVE_FAVORITE_COINS = 'REMOVE_FAVORITE_COINS'
 
@@ -112,7 +116,28 @@ export type GetAllCoinFail = {
   payload?: string
 }
 
-export type CoinActions = GetAllCoinAction | GetAllCoinSuccess | GetAllCoinFail
+export type GetFavActions = {
+  type: typeof GET_FAV
+  payload?: string
+}
+
+export type GetFavSuccess = {
+  type: typeof GET_FAV_SUCCESS
+  payload?: Coin
+}
+
+export type GetFavFail = {
+  type: typeof GET_FAV_FAIL
+  payload?: string
+}
+
+export type CoinActions =
+  | GetAllCoinAction
+  | GetAllCoinSuccess
+  | GetAllCoinFail
+  | GetFavActions
+  | GetFavSuccess
+  | GetFavFail
 
 export enum Theme {
   Dark = 'dark',

@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { ThemeContext } from '../../context/theme-context'
 
-import { fetchCoins } from '../../redux/actions'
+import { fetchFav } from '../../redux/actions'
 import { AppState, Coin } from '../../types'
 
 // import '../'
@@ -12,6 +13,7 @@ type CoinParam = {
 }
 
 const CoinPage = () => {
+  const dispatch = useDispatch()
   const [coin, setCoin] = useState<Coin>()
   const [invest, setInvest] = useState<number>(0)
   const [isLoading, setIsLoading] = useState(false)
@@ -21,13 +23,7 @@ const CoinPage = () => {
     const fetchData = async (coinId: string) => {
       try {
         setIsLoading(true)
-        const request = await fetch(
-          `https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&ids=${coinId}`
-        )
-        const res = await request.json()
-        console.log(res)
-
-        setCoin(res[0])
+        dispatch(fetchFav(coinId))
       } catch (err) {
         console.log(err)
       }
